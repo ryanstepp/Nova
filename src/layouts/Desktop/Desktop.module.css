@@ -1,0 +1,104 @@
+.desktop {
+  position: relative;
+  min-height: 100vh;
+  overflow: hidden;
+  padding: 86px 24px 132px;
+  background:
+    linear-gradient(145deg, rgba(7, 12, 18, 0.3), rgba(7, 12, 18, 0.08)),
+    radial-gradient(circle at 15% 18%, rgba(91, 231, 196, 0.48), transparent 23%),
+    radial-gradient(circle at 82% 22%, rgba(255, 122, 184, 0.42), transparent 23%),
+    radial-gradient(circle at 62% 78%, rgba(106, 183, 255, 0.4), transparent 29%),
+    linear-gradient(135deg, var(--wallpaper-a), var(--wallpaper-b) 50%, var(--wallpaper-c));
+  color: var(--text-primary);
+}
+
+.homeGrid {
+  display: grid;
+  grid-template-columns: minmax(220px, 300px) 1fr;
+  gap: 24px;
+  width: min(1180px, 100%);
+  margin: 0 auto;
+}
+
+.widget {
+  align-self: start;
+  display: grid;
+  gap: 10px;
+  min-height: 190px;
+  padding: 20px;
+  border: 1px solid var(--glass-border);
+  border-radius: 8px;
+  background: var(--glass);
+  box-shadow: var(--shadow-soft);
+  backdrop-filter: blur(18px);
+}
+
+.widget span {
+  color: var(--text-muted);
+  font-size: 13px;
+  text-transform: uppercase;
+}
+
+.widget strong {
+  font-size: 28px;
+}
+
+.widget p {
+  margin: 0;
+  color: var(--text-secondary);
+  line-height: 1.5;
+}
+
+.apps {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(92px, 1fr));
+  align-content: start;
+  gap: 18px 12px;
+  min-width: 0;
+}
+
+.notificationButton {
+  position: fixed;
+  z-index: 31;
+  top: 19px;
+  right: 236px;
+  display: grid;
+  place-items: center;
+  width: 32px;
+  height: 30px;
+  border: 1px solid transparent;
+  border-radius: 8px;
+  background: color-mix(in srgb, var(--panel), transparent 30%);
+  color: var(--text-primary);
+  cursor: pointer;
+}
+
+.notificationButton span {
+  position: absolute;
+  top: -6px;
+  right: -6px;
+  display: grid;
+  place-items: center;
+  min-width: 17px;
+  height: 17px;
+  padding: 0 4px;
+  border-radius: 999px;
+  background: var(--accent-active);
+  color: #071018;
+  font-size: 11px;
+  font-weight: 800;
+}
+
+@media (max-width: 820px) {
+  .desktop {
+    padding-inline: 14px;
+  }
+
+  .homeGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .notificationButton {
+    right: 164px;
+  }
+}

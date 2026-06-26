@@ -1,0 +1,60 @@
+.bootScreen {
+  display: grid;
+  place-items: center;
+  min-height: 100vh;
+  background:
+    radial-gradient(circle at 45% 35%, rgba(107, 210, 255, 0.28), transparent 26%),
+    linear-gradient(145deg, #090d14 0%, #151927 48%, #071015 100%);
+  color: white;
+}
+
+.mark {
+  display: grid;
+  justify-items: center;
+  gap: 18px;
+  animation: rise 800ms ease both;
+}
+
+.mark span {
+  width: 78px;
+  height: 78px;
+  border-radius: 8px;
+  background:
+    linear-gradient(135deg, rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.22)),
+    linear-gradient(135deg, #5be7c4, #6ab7ff 48%, #ff7ab8);
+  box-shadow: 0 28px 80px rgba(106, 183, 255, 0.35);
+}
+
+.mark strong {
+  font-size: 34px;
+  letter-spacing: 0;
+}
+
+.loader {
+  position: fixed;
+  bottom: 82px;
+  width: min(220px, 42vw);
+  height: 4px;
+  overflow: hidden;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.18);
+}
+
+.loader span {
+  display: block;
+  width: 44%;
+  height: 100%;
+  border-radius: inherit;
+  background: linear-gradient(90deg, #5be7c4, #6ab7ff);
+  animation: load 1600ms ease-in-out infinite;
+}
+
+@keyframes load {
+  0% { transform: translateX(-110%); }
+  100% { transform: translateX(260%); }
+}
+
+@keyframes rise {
+  from { opacity: 0; transform: translateY(12px) scale(0.97); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}

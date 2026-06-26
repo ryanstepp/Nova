@@ -1,0 +1,98 @@
+.center {
+  position: fixed;
+  z-index: 32;
+  top: 68px;
+  right: 14px;
+  display: grid;
+  grid-template-rows: auto 1fr;
+  width: min(380px, calc(100vw - 28px));
+  max-height: calc(100vh - 176px);
+  overflow: hidden;
+  border: 1px solid var(--glass-border);
+  border-radius: 8px;
+  background: var(--glass-strong);
+  box-shadow: var(--shadow-strong);
+  backdrop-filter: blur(26px);
+}
+
+.center header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px;
+  border-bottom: 1px solid var(--glass-border);
+}
+
+.center h2,
+.group h3,
+.notification p {
+  margin: 0;
+}
+
+.center h2 {
+  font-size: 18px;
+}
+
+.center header button {
+  height: 30px;
+  border: 1px solid var(--glass-border);
+  border-radius: 8px;
+  background: var(--glass);
+  color: var(--text-primary);
+  cursor: pointer;
+}
+
+.groups {
+  display: grid;
+  gap: 14px;
+  overflow: auto;
+  padding: 14px;
+}
+
+.group {
+  display: grid;
+  gap: 8px;
+}
+
+.group h3 {
+  color: var(--text-muted);
+  font-size: 12px;
+  text-transform: uppercase;
+}
+
+.notification {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 10px;
+  padding: 12px;
+  border: 1px solid var(--glass-border);
+  border-radius: 8px;
+  background: var(--glass);
+}
+
+.notification[data-priority="high"] {
+  border-color: color-mix(in srgb, var(--accent-active), transparent 45%);
+}
+
+.notification p {
+  margin-top: 5px;
+  color: var(--text-secondary);
+  font-size: 13px;
+  line-height: 1.4;
+}
+
+.notification button {
+  display: grid;
+  place-items: center;
+  width: 28px;
+  height: 28px;
+  border: 0;
+  border-radius: 8px;
+  background: transparent;
+  color: var(--text-secondary);
+  cursor: pointer;
+}
+
+.empty {
+  color: var(--text-secondary);
+}

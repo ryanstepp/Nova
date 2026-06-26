@@ -1,0 +1,59 @@
+.appIcon {
+  position: relative;
+  display: grid;
+  justify-items: center;
+  gap: 9px;
+  width: 92px;
+  padding: 8px 6px 12px;
+  border: 0;
+  background: transparent;
+  color: var(--text-primary);
+  font: inherit;
+  cursor: pointer;
+}
+
+.appIcon:hover .glyph,
+.appIcon:focus-visible .glyph {
+  transform: translateY(-4px) scale(1.04);
+  box-shadow: 0 18px 38px color-mix(in srgb, var(--accent), transparent 62%);
+}
+
+.appIcon:focus-visible {
+  outline: 2px solid var(--focus-ring);
+  outline-offset: 4px;
+  border-radius: 8px;
+}
+
+.glyph {
+  display: grid;
+  place-items: center;
+  width: 60px;
+  height: 60px;
+  border: 1px solid color-mix(in srgb, var(--accent), white 18%);
+  border-radius: 8px;
+  background:
+    radial-gradient(circle at 25% 20%, rgba(255, 255, 255, 0.5), transparent 26%),
+    linear-gradient(135deg, color-mix(in srgb, var(--accent), white 22%), color-mix(in srgb, var(--accent), black 20%));
+  color: #081018;
+  font-size: 25px;
+  font-weight: 800;
+  transition: transform 180ms ease, box-shadow 180ms ease;
+}
+
+.name {
+  max-width: 84px;
+  overflow: hidden;
+  color: var(--text-primary);
+  font-size: 13px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.running {
+  position: absolute;
+  bottom: 4px;
+  width: 5px;
+  height: 5px;
+  border-radius: 999px;
+  background: var(--accent-active);
+}

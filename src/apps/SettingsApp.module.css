@@ -1,0 +1,257 @@
+.settings {
+  display: grid;
+  grid-template-columns: 280px 1fr;
+  height: 100%;
+  min-height: 0;
+  color: var(--text-primary);
+}
+
+.sidebar {
+  display: grid;
+  align-content: start;
+  gap: 8px;
+  overflow: auto;
+  padding: 16px;
+  border-right: 1px solid var(--glass-border);
+  background: color-mix(in srgb, var(--panel), transparent 22%);
+}
+
+.sidebar button {
+  display: grid;
+  gap: 5px;
+  padding: 12px;
+  border: 1px solid transparent;
+  border-radius: var(--radius-ui);
+  background: transparent;
+  color: var(--text-primary);
+  text-align: left;
+  cursor: pointer;
+}
+
+.sidebar button:hover,
+.sidebar .active {
+  border-color: var(--glass-border);
+  background: var(--glass);
+}
+
+.sidebar span {
+  color: var(--text-muted);
+  font-size: 12px;
+  line-height: 1.35;
+}
+
+.content {
+  display: grid;
+  align-content: start;
+  gap: 16px;
+  overflow: auto;
+  padding: 22px;
+}
+
+.header,
+.section,
+.preview {
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-ui);
+  background: var(--glass);
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 18px;
+}
+
+.header h2,
+.header p,
+.section h3,
+.preview p {
+  margin: 0;
+}
+
+.header h2 {
+  font-size: 26px;
+}
+
+.header p,
+.preview p {
+  margin-top: 6px;
+  color: var(--text-secondary);
+  line-height: 1.45;
+}
+
+.reset,
+.segmented button,
+.wallpaper,
+.colorPicker,
+.toggle {
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-ui);
+  background: color-mix(in srgb, var(--panel), transparent 24%);
+  color: var(--text-primary);
+  cursor: pointer;
+}
+
+.reset {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-width: 92px;
+  height: 38px;
+  justify-content: center;
+}
+
+.section {
+  display: grid;
+  gap: 14px;
+  padding: 16px;
+}
+
+.section h3 {
+  font-size: 16px;
+}
+
+.segmented {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 8px;
+}
+
+.segmented button {
+  height: 42px;
+  text-transform: capitalize;
+}
+
+.segmented button[data-active="true"],
+.wallpaper[data-active="true"],
+.colors button[data-active="true"] {
+  border-color: var(--accent-active);
+  box-shadow: 0 0 0 2px color-mix(in srgb, var(--accent-active), transparent 72%);
+}
+
+.wallpapers {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(126px, 1fr));
+  gap: 10px;
+}
+
+.wallpaper {
+  display: grid;
+  gap: 9px;
+  padding: 10px;
+  text-align: left;
+}
+
+.wallpaper span {
+  height: 64px;
+  border-radius: var(--radius-ui);
+}
+
+.colors {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  align-items: center;
+}
+
+.colors button {
+  width: 38px;
+  height: 38px;
+  border: 1px solid var(--glass-border);
+  border-radius: 999px;
+  cursor: pointer;
+}
+
+.colorPicker {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  min-height: 38px;
+  padding: 0 10px;
+}
+
+.colorPicker input {
+  width: 34px;
+  height: 28px;
+  padding: 0;
+  border: 0;
+  background: transparent;
+}
+
+.controls {
+  display: grid;
+  gap: 12px;
+}
+
+.control {
+  display: grid;
+  gap: 8px;
+}
+
+.control span {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.control em {
+  color: var(--text-muted);
+  font-style: normal;
+}
+
+.control input {
+  width: 100%;
+  accent-color: var(--accent-active);
+}
+
+.toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  width: fit-content;
+  padding: 10px 12px;
+}
+
+.toggle input {
+  width: 18px;
+  height: 18px;
+  accent-color: var(--accent-active);
+}
+
+.preview {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 14px;
+  align-items: center;
+  padding: 18px;
+}
+
+.preview > span {
+  display: grid;
+  place-items: center;
+  width: 76px;
+  height: 76px;
+  border-radius: var(--radius-ui);
+  background:
+    radial-gradient(circle at 25% 20%, rgba(255, 255, 255, 0.52), transparent 28%),
+    linear-gradient(135deg, var(--accent-active), var(--wallpaper-b));
+  color: #071018;
+  font-weight: 800;
+}
+
+@media (max-width: 840px) {
+  .settings {
+    grid-template-columns: 1fr;
+  }
+
+  .sidebar {
+    display: none;
+  }
+
+  .header {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+}

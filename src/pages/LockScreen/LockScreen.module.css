@@ -1,0 +1,80 @@
+.lockScreen {
+  position: relative;
+  display: grid;
+  grid-template-rows: 1fr auto auto;
+  justify-items: center;
+  min-height: 100vh;
+  padding: 72px 24px 44px;
+  overflow: hidden;
+  background:
+    linear-gradient(160deg, rgba(4, 8, 15, 0.22), rgba(4, 8, 15, 0.72)),
+    radial-gradient(circle at 22% 18%, rgba(91, 231, 196, 0.58), transparent 24%),
+    radial-gradient(circle at 78% 28%, rgba(255, 122, 184, 0.5), transparent 24%),
+    linear-gradient(135deg, #1e2638, #101722 48%, #141016);
+  color: white;
+  animation: unlockReady 520ms ease both;
+}
+
+.clock {
+  display: grid;
+  align-content: center;
+  justify-items: center;
+  text-shadow: 0 10px 38px rgba(0, 0, 0, 0.32);
+}
+
+.time {
+  font-size: clamp(64px, 14vw, 148px);
+  font-weight: 800;
+  letter-spacing: 0;
+  line-height: 1;
+}
+
+.date {
+  margin-top: 14px;
+  color: rgba(255, 255, 255, 0.78);
+  font-size: clamp(18px, 3vw, 24px);
+}
+
+.preview {
+  display: grid;
+  gap: 10px;
+  width: min(460px, calc(100vw - 32px));
+  margin-bottom: 22px;
+}
+
+.notification {
+  display: grid;
+  gap: 5px;
+  padding: 14px 16px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.14);
+  backdrop-filter: blur(22px);
+}
+
+.notification span {
+  color: rgba(255, 255, 255, 0.72);
+  font-size: 14px;
+}
+
+.unlock {
+  min-width: 180px;
+  height: 44px;
+  border: 1px solid rgba(255, 255, 255, 0.26);
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.18);
+  color: white;
+  font: inherit;
+  font-weight: 700;
+  cursor: pointer;
+  backdrop-filter: blur(18px);
+}
+
+.unlock:hover {
+  background: rgba(255, 255, 255, 0.26);
+}
+
+@keyframes unlockReady {
+  from { opacity: 0; transform: scale(1.02); }
+  to { opacity: 1; transform: scale(1); }
+}

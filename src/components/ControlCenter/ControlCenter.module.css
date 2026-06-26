@@ -1,0 +1,62 @@
+.controlCenter {
+  position: fixed;
+  z-index: 33;
+  top: 68px;
+  right: 14px;
+  display: grid;
+  gap: 14px;
+  width: min(360px, calc(100vw - 28px));
+  padding: 14px;
+  border: 1px solid var(--glass-border);
+  border-radius: 8px;
+  background: var(--glass-strong);
+  box-shadow: var(--shadow-strong);
+  backdrop-filter: blur(26px);
+}
+
+.tiles {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.tile {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-height: 54px;
+  padding: 12px;
+  border: 1px solid var(--glass-border);
+  border-radius: 8px;
+  background: var(--glass);
+  color: var(--text-primary);
+  font: inherit;
+  cursor: pointer;
+}
+
+.tile[data-active="true"] {
+  border-color: color-mix(in srgb, var(--accent-active), transparent 42%);
+  background: color-mix(in srgb, var(--accent-active), transparent 78%);
+}
+
+.slider {
+  display: grid;
+  gap: 8px;
+  padding: 12px;
+  border: 1px solid var(--glass-border);
+  border-radius: 8px;
+  background: var(--glass);
+}
+
+.slider span {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--text-secondary);
+  font-size: 13px;
+}
+
+.slider input {
+  width: 100%;
+  accent-color: var(--accent-active);
+}

@@ -1,0 +1,31 @@
+{
+  "name": "nova",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Nova desktop operating system simulation",
+  "main": "dist-electron/main.js",
+  "scripts": {
+    "dev": "vite",
+    "electron:build": "tsc -p tsconfig.electron.json",
+    "electron:dev": "npm run electron:build && concurrently -k \"vite\" \"wait-on http://localhost:5173 && electron .\"",
+    "build": "tsc && npm run electron:build && vite build",
+    "preview": "vite preview",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@vitejs/plugin-react": "latest",
+    "vite": "latest",
+    "typescript": "latest",
+    "react": "latest",
+    "react-dom": "latest",
+    "electron": "latest",
+    "lucide-react": "latest"
+  },
+  "devDependencies": {
+    "@types/node": "latest",
+    "@types/react": "latest",
+    "@types/react-dom": "latest",
+    "concurrently": "latest",
+    "wait-on": "latest"
+  }
+}
