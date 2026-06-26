@@ -196,6 +196,11 @@
   cursor: pointer;
 }
 
+.uploadRow button:disabled {
+  cursor: not-allowed;
+  opacity: 0.48;
+}
+
 .fileButton input {
   display: none;
 }
@@ -260,6 +265,39 @@
 
 .message {
   margin: 0;
+  color: var(--text-secondary);
+}
+
+.infoGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 10px;
+}
+
+.infoCard {
+  display: grid;
+  gap: 6px;
+  padding: 12px;
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-ui);
+  background: color-mix(in srgb, var(--panel), transparent 28%);
+}
+
+.infoCard span {
+  color: var(--text-muted);
+  font-size: 12px;
+}
+
+.infoCard strong {
+  font-size: 15px;
+  overflow-wrap: anywhere;
+}
+
+.releaseNotes {
+  display: grid;
+  gap: 8px;
+  margin: 0;
+  padding-left: 20px;
   color: var(--text-secondary);
 }
 
