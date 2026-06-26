@@ -18,7 +18,6 @@ export interface NovaPreferences {
   motionSpeed: number;
   showWidgets: boolean;
   showAppLabels: boolean;
-  appIcons: Record<string, string>;
 }
 
 export interface NovaApp {

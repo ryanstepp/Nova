@@ -8,24 +8,9 @@ import type { NovaAppProps, NovaPreferences, NovaWallpaper } from "../types/nova
 import styles from "./SettingsApp.module.css";
 
 const accentPresets = ["#5be7c4", "#6ab7ff", "#ff7ab8", "#ffd166", "#a3e635", "#f78c6b"];
-const ownerIconCode = import.meta.env.VITE_NOVA_OWNER_CODE ?? "nova-owner-2026";
-const customizableApps = [
-  { id: "files", name: "Files" },
-  { id: "browser", name: "Browser" },
-  { id: "notes", name: "Notes" },
-  { id: "calculator", name: "Calculator" },
-  { id: "calendar", name: "Calendar" },
-  { id: "music", name: "Music" },
-  { id: "gallery", name: "Gallery" },
-  { id: "clock", name: "Clock" },
-  { id: "camera", name: "Camera" },
-  { id: "settings", name: "Settings" }
-];
 
 export function SettingsApp({ preferences, updatePreferences }: NovaAppProps) {
   const [newPasscode, setNewPasscode] = useState("");
-  const [ownerCode, setOwnerCode] = useState("");
-  const [hasOwnerIconAccess, setHasOwnerIconAccess] = useState(false);
   const [settingsMessage, setSettingsMessage] = useState("");
 
   function updateNumber(key: keyof NovaPreferences, value: string) {
@@ -45,26 +30,6 @@ export function SettingsApp({ preferences, updatePreferences }: NovaAppProps) {
     }
   }
 
-  async function uploadAppIcon(appId: string, file: File | undefined) {
-    if (!file) {
-      return;
-    }
-
-    try {
-      const icon = await readImageFile(file);
-      updatePreferences({ appIcons: { ...preferences.appIcons, [appId]: icon } });
-      setSettingsMessage("App icon updated.");
-    } catch (error) {
-      setSettingsMessage(error instanceof Error ? error.message : "Could not upload icon.");
-    }
-  }
-
-  function removeAppIcon(appId: string) {
-    const nextIcons = { ...preferences.appIcons };
-    delete nextIcons[appId];
-    updatePreferences({ appIcons: nextIcons });
-  }
-
   function savePasscode() {
     if (!isValidPasscode(newPasscode)) {
       setSettingsMessage("Passcode must be exactly 6 numbers.");
@@ -74,17 +39,6 @@ export function SettingsApp({ preferences, updatePreferences }: NovaAppProps) {
     updatePasscode(newPasscode);
     setNewPasscode("");
     setSettingsMessage("Unlock code changed.");
-  }
-
-  function unlockOwnerIconTools() {
-    if (ownerCode === ownerIconCode) {
-      setHasOwnerIconAccess(true);
-      setOwnerCode("");
-      setSettingsMessage("Owner icon tools unlocked.");
-      return;
-    }
-
-    setSettingsMessage("That owner code is not correct.");
   }
 
   return (
@@ -220,42 +174,6 @@ export function SettingsApp({ preferences, updatePreferences }: NovaAppProps) {
             />
             <span>Show app labels</span>
           </label>
-        </section>
-
-        <section className={styles.section}>
-          <h3>App Icons</h3>
-          {hasOwnerIconAccess ? (
-            <div className={styles.iconGrid}>
-              {customizableApps.map((currentApp) => (
-                <article key={currentApp.id} className={styles.iconEditor}>
-                  <span>
-                    {preferences.appIcons[currentApp.id] ? <img src={preferences.appIcons[currentApp.id]} alt="" /> : currentApp.name.slice(0, 1)}
-                  </span>
-                  <strong>{currentApp.name}</strong>
-                  <label className={styles.fileButton}>
-                    Upload
-                    <input accept="image/*" type="file" onChange={(event) => void uploadAppIcon(currentApp.id, event.target.files?.[0])} />
-                  </label>
-                  {preferences.appIcons[currentApp.id] ? (
-                    <button onClick={() => removeAppIcon(currentApp.id)} type="button">Remove</button>
-                  ) : null}
-                </article>
-              ))}
-            </div>
-          ) : (
-            <div className={styles.ownerLock}>
-              <p>App icon photos are owner-only.</p>
-              <div className={styles.passcodeRow}>
-                <input
-                  placeholder="Owner icon code"
-                  type="password"
-                  value={ownerCode}
-                  onChange={(event) => setOwnerCode(event.target.value)}
-                />
-                <button onClick={unlockOwnerIconTools} type="button">Unlock</button>
-              </div>
-            </div>
-          )}
         </section>
 
         <section className={styles.section}>

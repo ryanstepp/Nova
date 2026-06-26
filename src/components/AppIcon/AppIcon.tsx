@@ -1,5 +1,6 @@
 import type { CSSProperties } from "react";
 import type { NovaApp, NovaPreferences } from "../../types/nova";
+import { appIconOverrides } from "../../apps/appIconOverrides";
 import styles from "./AppIcon.module.css";
 
 interface AppIconProps {
@@ -10,7 +11,7 @@ interface AppIconProps {
 }
 
 export function AppIcon({ app, preferences, isRunning = false, onOpen }: AppIconProps) {
-  const customIcon = preferences.appIcons[app.id];
+  const customIcon = appIconOverrides[app.id];
 
   return (
     <button className={styles.appIcon} onClick={() => onOpen(app.id)} type="button">

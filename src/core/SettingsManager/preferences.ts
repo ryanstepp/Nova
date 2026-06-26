@@ -20,8 +20,7 @@ export const defaultPreferences: NovaPreferences = {
   dockScale: 100,
   motionSpeed: 100,
   showWidgets: true,
-  showAppLabels: true,
-  appIcons: {}
+  showAppLabels: true
 };
 
 export function loadPreferences(): NovaPreferences {
