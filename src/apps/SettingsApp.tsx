@@ -1,5 +1,6 @@
+import type { ReactNode } from "react";
 import { RotateCcw } from "lucide-react";
-import { defaultPreferences, resetPreferences, wallpaperPalettes } from "../core/SettingsManager/preferences";
+import { resetPreferences, wallpaperPalettes } from "../core/SettingsManager/preferences";
 import { settingCategories } from "../core/SettingsManager/settingsCatalog";
 import type { NovaAppProps, NovaPreferences, NovaWallpaper } from "../types/nova";
 import styles from "./SettingsApp.module.css";
@@ -141,7 +142,7 @@ export function SettingsApp({ preferences, updatePreferences }: NovaAppProps) {
   );
 }
 
-function Control({ children, label, value }: { children: React.ReactNode; label: string; value: string }) {
+function Control({ children, label, value }: { children: ReactNode; label: string; value: string }) {
   return (
     <label className={styles.control}>
       <span>

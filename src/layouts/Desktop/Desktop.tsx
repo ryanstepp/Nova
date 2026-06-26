@@ -11,16 +11,16 @@ import { WindowSurface } from "../../components/WindowSurface/WindowSurface";
 import { initialNotifications } from "../../core/NotificationManager/notificationSeed";
 import { searchNova } from "../../core/SearchManager/searchManager";
 import { useWindowManager } from "../../core/WindowManager/useWindowManager";
-import type { NovaNotification, NovaTheme } from "../../types/nova";
+import type { NovaNotification, NovaPreferences } from "../../types/nova";
 import styles from "./Desktop.module.css";
 
 interface DesktopProps {
   date: Date;
-  theme: NovaTheme;
-  onToggleTheme: () => void;
+  preferences: NovaPreferences;
+  updatePreferences: (preferences: Partial<NovaPreferences>) => void;
 }
 
-export function Desktop({ date, theme, onToggleTheme }: DesktopProps) {
+export function Desktop({ date, preferences, updatePreferences }: DesktopProps) {
   const windowManager = useWindowManager(novaApps);
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const [isNotificationsOpen, setIsNotificationsOpen] = useState(false);
@@ -30,6 +30,7 @@ export function Desktop({ date, theme, onToggleTheme }: DesktopProps) {
   const runningAppIds = windowManager.openApps.map((app) => app.id);
   const dockApps = novaApps.filter((app) => ["files", "browser", "notes", "calculator", "settings"].includes(app.id));
   const results = useMemo(() => searchNova(query, novaApps), [query]);
+  const toggleTheme = () => updatePreferences({ theme: preferences.theme === "dark" ? "light" : "dark" });
 
   function openApp(appId: string) {
     windowManager.openApp(appId);
@@ -41,7 +42,7 @@ export function Desktop({ date, theme, onToggleTheme }: DesktopProps) {
       <StatusBar
         date={date}
         onSearch={() => setIsSearchOpen(true)}
-        onToggleTheme={onToggleTheme}
+        onToggleTheme={toggleTheme}
         onToggleControlCenter={() => {
           setIsControlCenterOpen((value) => !value);
           setIsNotificationsOpen(false);
@@ -62,11 +63,13 @@ export function Desktop({ date, theme, onToggleTheme }: DesktopProps) {
       </button>
 
       <section className={styles.homeGrid} aria-label="Home Screen">
-        <div className={styles.widget}>
-          <span>Today</span>
-          <strong>{date.toLocaleDateString([], { weekday: "long", month: "short", day: "numeric" })}</strong>
-          <p>Widgets are scaffolded for weather, calendar, focus, and system health.</p>
-        </div>
+        {preferences.showWidgets ? (
+          <div className={styles.widget}>
+            <span>Today</span>
+            <strong>{date.toLocaleDateString([], { weekday: "long", month: "short", day: "numeric" })}</strong>
+            <p>Widgets are scaffolded for weather, calendar, focus, and system health.</p>
+          </div>
+        ) : null}
         <div className={styles.apps}>
           {novaApps.map((app) => (
             <AppIcon key={app.id} app={app} isRunning={runningAppIds.includes(app.id)} onOpen={openApp} />
@@ -74,7 +77,14 @@ export function Desktop({ date, theme, onToggleTheme }: DesktopProps) {
         </div>
       </section>
 
-      {windowManager.activeApp ? <WindowSurface app={windowManager.activeApp} onClose={windowManager.closeApp} /> : null}
+      {windowManager.activeApp ? (
+        <WindowSurface
+          app={windowManager.activeApp}
+          preferences={preferences}
+          updatePreferences={updatePreferences}
+          onClose={windowManager.closeApp}
+        />
+      ) : null}
 
       <Dock apps={dockApps} runningAppIds={runningAppIds} onOpen={openApp} />
 
@@ -90,7 +100,7 @@ export function Desktop({ date, theme, onToggleTheme }: DesktopProps) {
         />
       ) : null}
 
-      {isControlCenterOpen ? <ControlCenter isDark={theme === "dark"} onToggleTheme={onToggleTheme} /> : null}
+      {isControlCenterOpen ? <ControlCenter isDark={preferences.theme === "dark"} onToggleTheme={toggleTheme} /> : null}
     </main>
   );
 }

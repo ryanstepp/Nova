@@ -3,13 +3,14 @@ import { BootScreen } from "./pages/BootScreen/BootScreen";
 import { LockScreen } from "./pages/LockScreen/LockScreen";
 import { Desktop } from "./layouts/Desktop/Desktop";
 import { initialNotifications } from "./core/NotificationManager/notificationSeed";
+import { loadPreferences, savePreferences } from "./core/SettingsManager/preferences";
 import { applyNovaTheme } from "./core/ThemeManager/themeManager";
-import type { NovaMode, NovaTheme } from "./types/nova";
+import type { NovaMode, NovaPreferences } from "./types/nova";
 
 export function App() {
   const [mode, setMode] = useState<NovaMode>("booting");
   const [date, setDate] = useState(new Date());
-  const [theme, setTheme] = useState<NovaTheme>("dark");
+  const [preferences, setPreferences] = useState<NovaPreferences>(() => loadPreferences());
 
   useEffect(() => {
     const bootTimer = window.setTimeout(() => setMode("locked"), 1800);
@@ -22,8 +23,13 @@ export function App() {
   }, []);
 
   useEffect(() => {
-    applyNovaTheme(theme);
-  }, [theme]);
+    applyNovaTheme(preferences);
+    savePreferences(preferences);
+  }, [preferences]);
+
+  function updatePreferences(nextPreferences: Partial<NovaPreferences>) {
+    setPreferences((current) => ({ ...current, ...nextPreferences }));
+  }
 
   if (mode === "booting") {
     return <BootScreen />;
@@ -36,8 +42,8 @@ export function App() {
   return (
     <Desktop
       date={date}
-      theme={theme}
-      onToggleTheme={() => setTheme((current) => (current === "dark" ? "light" : "dark"))}
+      preferences={preferences}
+      updatePreferences={updatePreferences}
     />
   );
 }

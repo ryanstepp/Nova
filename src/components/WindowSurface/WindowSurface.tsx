@@ -1,14 +1,16 @@
 import type { CSSProperties } from "react";
 import { X } from "lucide-react";
-import type { NovaApp } from "../../types/nova";
+import type { NovaApp, NovaPreferences } from "../../types/nova";
 import styles from "./WindowSurface.module.css";
 
 interface WindowSurfaceProps {
   app: NovaApp;
+  preferences: NovaPreferences;
+  updatePreferences: (preferences: Partial<NovaPreferences>) => void;
   onClose: (appId: string) => void;
 }
 
-export function WindowSurface({ app, onClose }: WindowSurfaceProps) {
+export function WindowSurface({ app, preferences, updatePreferences, onClose }: WindowSurfaceProps) {
   const AppComponent = app.component;
 
   return (
@@ -23,7 +25,7 @@ export function WindowSurface({ app, onClose }: WindowSurfaceProps) {
         </button>
       </header>
       <div className={styles.content}>
-        <AppComponent app={app} />
+        <AppComponent app={app} preferences={preferences} updatePreferences={updatePreferences} />
       </div>
     </section>
   );
