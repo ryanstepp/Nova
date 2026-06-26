@@ -1,0 +1,273 @@
+.app {
+  display: grid;
+  align-content: start;
+  gap: 16px;
+  min-height: 100%;
+  padding: 22px;
+  color: var(--text-primary);
+}
+
+.header {
+  display: grid;
+  gap: 5px;
+}
+
+.header h2,
+.header p,
+.empty,
+.galleryGrid figure,
+.track strong {
+  margin: 0;
+}
+
+.header h2 {
+  font-size: 30px;
+}
+
+.header p,
+.empty,
+.row span,
+.noteTab span {
+  color: var(--text-secondary);
+}
+
+.primaryButton,
+.toolbar button,
+.row button,
+.row a,
+.editor button,
+.calculatorKeys button,
+.noteTab,
+.track button,
+.galleryGrid button,
+.panelGrid button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 38px;
+  padding: 0 12px;
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-ui);
+  background: color-mix(in srgb, var(--panel), transparent 24%);
+  color: var(--text-primary);
+  font: inherit;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.primaryButton {
+  justify-self: start;
+  background: var(--accent-active);
+  color: #071018;
+  font-weight: 800;
+}
+
+.primaryButton input {
+  display: none;
+}
+
+.toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.toolbar input,
+.editor input,
+.editor textarea,
+.calculatorDisplay input,
+.panelGrid input {
+  min-height: 40px;
+  padding: 0 12px;
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-ui);
+  background: color-mix(in srgb, var(--panel), transparent 20%);
+  color: var(--text-primary);
+}
+
+.toolbar input:first-child {
+  flex: 1 1 220px;
+}
+
+.list {
+  display: grid;
+  gap: 10px;
+}
+
+.row,
+.track {
+  display: grid;
+  grid-template-columns: 1fr auto auto;
+  gap: 10px;
+  align-items: center;
+  padding: 12px;
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-ui);
+  background: var(--glass);
+}
+
+.row > div,
+.track {
+  min-width: 0;
+}
+
+.row strong,
+.row span,
+.track strong {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.browserFrame {
+  width: 100%;
+  height: min(460px, 46vh);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-ui);
+  background: white;
+}
+
+.chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.chips button {
+  max-width: 260px;
+  overflow: hidden;
+  padding: 8px 10px;
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-ui);
+  background: var(--glass);
+  color: var(--text-primary);
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  cursor: pointer;
+}
+
+.split {
+  display: grid;
+  grid-template-columns: minmax(180px, 260px) 1fr;
+  gap: 14px;
+  min-height: 430px;
+}
+
+.noteTab {
+  display: grid;
+  justify-items: start;
+  gap: 5px;
+  text-align: left;
+}
+
+.noteTab[data-active="true"] {
+  border-color: var(--accent-active);
+}
+
+.editor {
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  gap: 10px;
+}
+
+.editor textarea {
+  min-height: 320px;
+  padding: 12px;
+  resize: vertical;
+}
+
+.calculatorDisplay {
+  display: grid;
+  gap: 10px;
+  padding: 14px;
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-ui);
+  background: var(--glass);
+}
+
+.calculatorDisplay input {
+  width: 100%;
+  font-size: 24px;
+}
+
+.calculatorDisplay strong {
+  min-height: 34px;
+  font-size: 28px;
+  text-align: right;
+}
+
+.calculatorKeys {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 9px;
+}
+
+.galleryGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  gap: 12px;
+}
+
+.galleryGrid figure {
+  display: grid;
+  gap: 8px;
+  padding: 10px;
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-ui);
+  background: var(--glass);
+}
+
+.galleryGrid img {
+  width: 100%;
+  aspect-ratio: 1;
+  object-fit: cover;
+  border-radius: var(--radius-ui);
+}
+
+.track {
+  grid-template-columns: 1fr;
+}
+
+.track audio {
+  width: 100%;
+}
+
+.panelGrid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.panelGrid article {
+  display: grid;
+  gap: 10px;
+  padding: 14px;
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-ui);
+  background: var(--glass);
+}
+
+.panelGrid span {
+  color: var(--text-muted);
+}
+
+.panelGrid strong {
+  font-size: 34px;
+}
+
+.camera video {
+  width: 100%;
+  max-height: 430px;
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-ui);
+  background: #05070a;
+  object-fit: contain;
+}
+
+@media (max-width: 760px) {
+  .split,
+  .panelGrid,
+  .row {
+    grid-template-columns: 1fr;
+  }
+}
