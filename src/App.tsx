@@ -1,9 +1,11 @@
 import { useEffect, useState } from "react";
 import { BootScreen } from "./pages/BootScreen/BootScreen";
 import { LockScreen } from "./pages/LockScreen/LockScreen";
+import { SetupWizard } from "./pages/SetupWizard/SetupWizard";
 import { Desktop } from "./layouts/Desktop/Desktop";
 import { initialNotifications } from "./core/NotificationManager/notificationSeed";
 import { loadPreferences, savePreferences } from "./core/SettingsManager/preferences";
+import { isSetupComplete, verifyPasscode } from "./core/SettingsManager/security";
 import { applyNovaTheme } from "./core/ThemeManager/themeManager";
 import type { NovaMode, NovaPreferences } from "./types/nova";
 
@@ -13,7 +15,7 @@ export function App() {
   const [preferences, setPreferences] = useState<NovaPreferences>(() => loadPreferences());
 
   useEffect(() => {
-    const bootTimer = window.setTimeout(() => setMode("locked"), 1800);
+    const bootTimer = window.setTimeout(() => setMode(isSetupComplete() ? "locked" : "setup"), 1800);
     return () => window.clearTimeout(bootTimer);
   }, []);
 
@@ -35,8 +37,30 @@ export function App() {
     return <BootScreen />;
   }
 
+  if (mode === "setup") {
+    return (
+      <SetupWizard
+        preferences={preferences}
+        updatePreferences={updatePreferences}
+        onComplete={() => setMode("locked")}
+      />
+    );
+  }
+
   if (mode === "locked") {
-    return <LockScreen date={date} notifications={initialNotifications} onUnlock={() => setMode("home")} />;
+    return (
+      <LockScreen
+        date={date}
+        notifications={initialNotifications}
+        onUnlock={(passcode) => {
+          const isUnlocked = verifyPasscode(passcode);
+          if (isUnlocked) {
+            setMode("home");
+          }
+          return isUnlocked;
+        }}
+      />
+    );
   }
 
   return (

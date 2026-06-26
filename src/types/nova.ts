@@ -1,6 +1,6 @@
 import type { ComponentType } from "react";
 
-export type NovaMode = "booting" | "locked" | "home";
+export type NovaMode = "booting" | "setup" | "locked" | "home";
 export type NovaTheme = "dark" | "light";
 export type NotificationPriority = "low" | "normal" | "high";
 
@@ -9,6 +9,7 @@ export type NovaWallpaper = "aurora" | "ember" | "lagoon" | "mono";
 export interface NovaPreferences {
   theme: NovaTheme;
   wallpaper: NovaWallpaper;
+  customWallpaper: string | null;
   accentColor: string;
   cornerRadius: number;
   glassOpacity: number;
@@ -16,6 +17,8 @@ export interface NovaPreferences {
   dockScale: number;
   motionSpeed: number;
   showWidgets: boolean;
+  showAppLabels: boolean;
+  appIcons: Record<string, string>;
 }
 
 export interface NovaApp {

@@ -172,6 +172,34 @@
   padding: 0 10px;
 }
 
+.uploadRow,
+.passcodeRow {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  align-items: center;
+}
+
+.fileButton,
+.uploadRow button,
+.passcodeRow button,
+.iconEditor button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 38px;
+  padding: 0 12px;
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-ui);
+  background: color-mix(in srgb, var(--panel), transparent 24%);
+  color: var(--text-primary);
+  cursor: pointer;
+}
+
+.fileButton input {
+  display: none;
+}
+
 .colorPicker input {
   width: 34px;
   height: 28px;
@@ -218,6 +246,55 @@
   width: 18px;
   height: 18px;
   accent-color: var(--accent-active);
+}
+
+.iconGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(132px, 1fr));
+  gap: 10px;
+}
+
+.iconEditor {
+  display: grid;
+  gap: 9px;
+  justify-items: start;
+  padding: 12px;
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-ui);
+  background: color-mix(in srgb, var(--panel), transparent 28%);
+}
+
+.iconEditor > span {
+  display: grid;
+  place-items: center;
+  width: 52px;
+  height: 52px;
+  overflow: hidden;
+  border-radius: var(--radius-ui);
+  background: linear-gradient(135deg, var(--accent-active), var(--wallpaper-b));
+  color: #071018;
+  font-weight: 800;
+}
+
+.iconEditor img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.passcodeRow input {
+  min-width: min(260px, 100%);
+  height: 40px;
+  padding: 0 12px;
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-ui);
+  background: color-mix(in srgb, var(--panel), transparent 20%);
+  color: var(--text-primary);
+}
+
+.message {
+  margin: 0;
+  color: var(--text-secondary);
 }
 
 .preview {

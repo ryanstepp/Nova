@@ -1,20 +1,23 @@
 import type { CSSProperties } from "react";
-import type { NovaApp } from "../../types/nova";
+import type { NovaApp, NovaPreferences } from "../../types/nova";
 import styles from "./AppIcon.module.css";
 
 interface AppIconProps {
   app: NovaApp;
+  preferences: NovaPreferences;
   isRunning?: boolean;
   onOpen: (appId: string) => void;
 }
 
-export function AppIcon({ app, isRunning = false, onOpen }: AppIconProps) {
+export function AppIcon({ app, preferences, isRunning = false, onOpen }: AppIconProps) {
+  const customIcon = preferences.appIcons[app.id];
+
   return (
     <button className={styles.appIcon} onClick={() => onOpen(app.id)} type="button">
       <span className={styles.glyph} style={{ "--accent": app.accent } as CSSProperties}>
-        {app.icon}
+        {customIcon ? <img src={customIcon} alt="" /> : app.icon}
       </span>
-      <span className={styles.name}>{app.name}</span>
+      {preferences.showAppLabels ? <span className={styles.name}>{app.name}</span> : null}
       {isRunning ? <span className={styles.running} /> : null}
     </button>
   );

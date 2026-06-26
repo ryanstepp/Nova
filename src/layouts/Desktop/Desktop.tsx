@@ -67,12 +67,12 @@ export function Desktop({ date, preferences, updatePreferences }: DesktopProps) 
           <div className={styles.widget}>
             <span>Today</span>
             <strong>{date.toLocaleDateString([], { weekday: "long", month: "short", day: "numeric" })}</strong>
-            <p>Widgets are scaffolded for weather, calendar, focus, and system health.</p>
+          <p>Widgets are scaffolded for weather, calendar, focus, and system health.</p>
           </div>
         ) : null}
         <div className={styles.apps}>
           {novaApps.map((app) => (
-            <AppIcon key={app.id} app={app} isRunning={runningAppIds.includes(app.id)} onOpen={openApp} />
+            <AppIcon key={app.id} app={app} preferences={preferences} isRunning={runningAppIds.includes(app.id)} onOpen={openApp} />
           ))}
         </div>
       </section>
@@ -86,7 +86,7 @@ export function Desktop({ date, preferences, updatePreferences }: DesktopProps) 
         />
       ) : null}
 
-      <Dock apps={dockApps} runningAppIds={runningAppIds} onOpen={openApp} />
+      <Dock apps={dockApps} preferences={preferences} runningAppIds={runningAppIds} onOpen={openApp} />
 
       {isSearchOpen ? (
         <SearchOverlay query={query} results={results} onChange={setQuery} onClose={() => setIsSearchOpen(false)} />

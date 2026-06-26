@@ -1,15 +1,76 @@
-import type { ReactNode } from "react";
+import { useState, type ReactNode } from "react";
 import { RotateCcw } from "lucide-react";
+import { readImageFile } from "../core/SettingsManager/fileReaders";
 import { resetPreferences, wallpaperPalettes } from "../core/SettingsManager/preferences";
+import { isValidPasscode, updatePasscode } from "../core/SettingsManager/security";
 import { settingCategories } from "../core/SettingsManager/settingsCatalog";
 import type { NovaAppProps, NovaPreferences, NovaWallpaper } from "../types/nova";
 import styles from "./SettingsApp.module.css";
 
 const accentPresets = ["#5be7c4", "#6ab7ff", "#ff7ab8", "#ffd166", "#a3e635", "#f78c6b"];
+const customizableApps = [
+  { id: "files", name: "Files" },
+  { id: "browser", name: "Browser" },
+  { id: "notes", name: "Notes" },
+  { id: "calculator", name: "Calculator" },
+  { id: "calendar", name: "Calendar" },
+  { id: "music", name: "Music" },
+  { id: "gallery", name: "Gallery" },
+  { id: "clock", name: "Clock" },
+  { id: "camera", name: "Camera" },
+  { id: "settings", name: "Settings" }
+];
 
 export function SettingsApp({ preferences, updatePreferences }: NovaAppProps) {
+  const [newPasscode, setNewPasscode] = useState("");
+  const [settingsMessage, setSettingsMessage] = useState("");
+
   function updateNumber(key: keyof NovaPreferences, value: string) {
     updatePreferences({ [key]: Number(value) } as Partial<NovaPreferences>);
+  }
+
+  async function uploadWallpaper(file: File | undefined) {
+    if (!file) {
+      return;
+    }
+
+    try {
+      updatePreferences({ customWallpaper: await readImageFile(file) });
+      setSettingsMessage("Wallpaper updated.");
+    } catch (error) {
+      setSettingsMessage(error instanceof Error ? error.message : "Could not upload wallpaper.");
+    }
+  }
+
+  async function uploadAppIcon(appId: string, file: File | undefined) {
+    if (!file) {
+      return;
+    }
+
+    try {
+      const icon = await readImageFile(file);
+      updatePreferences({ appIcons: { ...preferences.appIcons, [appId]: icon } });
+      setSettingsMessage("App icon updated.");
+    } catch (error) {
+      setSettingsMessage(error instanceof Error ? error.message : "Could not upload icon.");
+    }
+  }
+
+  function removeAppIcon(appId: string) {
+    const nextIcons = { ...preferences.appIcons };
+    delete nextIcons[appId];
+    updatePreferences({ appIcons: nextIcons });
+  }
+
+  function savePasscode() {
+    if (!isValidPasscode(newPasscode)) {
+      setSettingsMessage("Passcode must be exactly 6 numbers.");
+      return;
+    }
+
+    updatePasscode(newPasscode);
+    setNewPasscode("");
+    setSettingsMessage("Unlock code changed.");
   }
 
   return (
@@ -71,6 +132,15 @@ export function SettingsApp({ preferences, updatePreferences }: NovaAppProps) {
               </button>
             ))}
           </div>
+          <div className={styles.uploadRow}>
+            <label className={styles.fileButton}>
+              Upload wallpaper
+              <input accept="image/*" type="file" onChange={(event) => void uploadWallpaper(event.target.files?.[0])} />
+            </label>
+            {preferences.customWallpaper ? (
+              <button onClick={() => updatePreferences({ customWallpaper: null })} type="button">Use preset</button>
+            ) : null}
+          </div>
         </section>
 
         <section className={styles.section}>
@@ -128,6 +198,51 @@ export function SettingsApp({ preferences, updatePreferences }: NovaAppProps) {
             />
             <span>Show widgets</span>
           </label>
+          <label className={styles.toggle}>
+            <input
+              checked={preferences.showAppLabels}
+              onChange={(event) => updatePreferences({ showAppLabels: event.target.checked })}
+              type="checkbox"
+            />
+            <span>Show app labels</span>
+          </label>
+        </section>
+
+        <section className={styles.section}>
+          <h3>App Icons</h3>
+          <div className={styles.iconGrid}>
+            {customizableApps.map((currentApp) => (
+              <article key={currentApp.id} className={styles.iconEditor}>
+                <span>
+                  {preferences.appIcons[currentApp.id] ? <img src={preferences.appIcons[currentApp.id]} alt="" /> : currentApp.name.slice(0, 1)}
+                </span>
+                <strong>{currentApp.name}</strong>
+                <label className={styles.fileButton}>
+                  Upload
+                  <input accept="image/*" type="file" onChange={(event) => void uploadAppIcon(currentApp.id, event.target.files?.[0])} />
+                </label>
+                {preferences.appIcons[currentApp.id] ? (
+                  <button onClick={() => removeAppIcon(currentApp.id)} type="button">Remove</button>
+                ) : null}
+              </article>
+            ))}
+          </div>
+        </section>
+
+        <section className={styles.section}>
+          <h3>Security</h3>
+          <div className={styles.passcodeRow}>
+            <input
+              inputMode="numeric"
+              maxLength={6}
+              placeholder="New 6 digit code"
+              type="password"
+              value={newPasscode}
+              onChange={(event) => setNewPasscode(event.target.value.replace(/\D/g, "").slice(0, 6))}
+            />
+            <button onClick={savePasscode} type="button">Save code</button>
+          </div>
+          {settingsMessage ? <p className={styles.message}>{settingsMessage}</p> : null}
         </section>
 
         <section className={styles.preview}>

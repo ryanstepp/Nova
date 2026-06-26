@@ -9,6 +9,7 @@ export function applyNovaTheme(preferences: NovaPreferences) {
   root.style.setProperty("--wallpaper-a", wallpaper.colors[0]);
   root.style.setProperty("--wallpaper-b", wallpaper.colors[1]);
   root.style.setProperty("--wallpaper-c", wallpaper.colors[2]);
+  root.style.setProperty("--custom-wallpaper", preferences.customWallpaper ? `url("${preferences.customWallpaper}")` : "none");
   root.style.setProperty("--accent-active", preferences.accentColor);
   root.style.setProperty("--focus-ring", preferences.accentColor);
   root.style.setProperty("--radius-ui", `${preferences.cornerRadius}px`);

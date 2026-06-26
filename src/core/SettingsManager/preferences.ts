@@ -12,13 +12,16 @@ export const wallpaperPalettes: Record<NovaWallpaper, { name: string; colors: [s
 export const defaultPreferences: NovaPreferences = {
   theme: "dark",
   wallpaper: "aurora",
+  customWallpaper: null,
   accentColor: "#5be7c4",
   cornerRadius: 8,
   glassOpacity: 62,
   fontScale: 100,
   dockScale: 100,
   motionSpeed: 100,
-  showWidgets: true
+  showWidgets: true,
+  showAppLabels: true,
+  appIcons: {}
 };
 
 export function loadPreferences(): NovaPreferences {

@@ -7,10 +7,13 @@
   padding: 72px 24px 44px;
   overflow: hidden;
   background:
+    var(--custom-wallpaper),
     linear-gradient(160deg, rgba(4, 8, 15, 0.22), rgba(4, 8, 15, 0.72)),
     radial-gradient(circle at 22% 18%, rgba(91, 231, 196, 0.58), transparent 24%),
     radial-gradient(circle at 78% 28%, rgba(255, 122, 184, 0.5), transparent 24%),
     linear-gradient(135deg, #1e2638, #101722 48%, #141016);
+  background-position: center;
+  background-size: cover;
   color: white;
   animation: unlockReady 520ms ease both;
 }
@@ -57,21 +60,56 @@
   font-size: 14px;
 }
 
-.unlock {
-  min-width: 180px;
-  height: 44px;
-  border: 1px solid rgba(255, 255, 255, 0.26);
+.unlockPanel {
+  display: grid;
+  gap: 14px;
+  width: min(280px, calc(100vw - 32px));
+}
+
+.dots {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+}
+
+.dots span {
+  width: 12px;
+  height: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.45);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.12);
+}
+
+.dots span[data-filled="true"] {
+  background: white;
+}
+
+.keypad {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+}
+
+.keypad button {
+  height: 48px;
+  border: 1px solid rgba(255, 255, 255, 0.22);
   border-radius: 8px;
-  background: rgba(255, 255, 255, 0.18);
+  background: rgba(255, 255, 255, 0.16);
   color: white;
   font: inherit;
-  font-weight: 700;
+  font-weight: 800;
   cursor: pointer;
   backdrop-filter: blur(18px);
 }
 
-.unlock:hover {
+.keypad button:hover {
   background: rgba(255, 255, 255, 0.26);
+}
+
+.error {
+  margin: 0;
+  color: #ffb1ba;
+  text-align: center;
 }
 
 @keyframes unlockReady {

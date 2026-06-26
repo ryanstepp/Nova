@@ -4,11 +4,14 @@
   overflow: hidden;
   padding: 86px 24px 132px;
   background:
+    var(--custom-wallpaper),
     linear-gradient(145deg, rgba(7, 12, 18, 0.3), rgba(7, 12, 18, 0.08)),
     radial-gradient(circle at 15% 18%, rgba(91, 231, 196, 0.48), transparent 23%),
     radial-gradient(circle at 82% 22%, rgba(255, 122, 184, 0.42), transparent 23%),
     radial-gradient(circle at 62% 78%, rgba(106, 183, 255, 0.4), transparent 29%),
     linear-gradient(135deg, var(--wallpaper-a), var(--wallpaper-b) 50%, var(--wallpaper-c));
+  background-position: center;
+  background-size: cover;
   color: var(--text-primary);
 }
 
